@@ -19,6 +19,43 @@
 `IB.Contract` <- build.constructor('IB.Contract', IB.Contract.definition)
 `as.character.IB.Contract` <- build.pretty.as.character('Contract')
 
+`IB.ContractDetails.definition` <- list(
+      market.name         = .string
+    , trading.class       = .string
+    , tick.min            = .double
+    , price.magnifier     = .int
+    , order.types         = .string
+    , valid.exchanges     = .string
+    , under.contract.id   = .int
+    , name.long           = .string
+    , contract.month      = .string
+    , industry            = .string
+    , category            = .string
+    , subcategory         = .string
+    , timezone.id         = .string
+    , trading.hours       = .string
+    , liquid.hours        = .string
+    , ev.rule             = .string
+    , ev.multiplier       = .double
+    , cusip               = .string
+    , ratings             = .string
+    , desc.append         = .string
+    , bond.type           = .string
+    , coupon.type         = .string
+    , callable            = .boolean
+    , putable             = .boolean
+    , coupon              = .double
+    , convertible         = .boolean
+    , maturity            = .string
+    , issue.date          = .string
+    , next.option.date    = .string
+    , next.option.type    = .string
+    , next.option.partial = .boolean
+    , notes               = .string
+)
+`IB.ContractDetails` <- build.constructor('IB.ContractDetails', IB.ContractDetails.definition)
+`as.character.IB.ContractDetails` <- build.pretty.as.character('ContractDetails')
+
 `IB.ComboLeg.definition` <- list(
       contract.id        = .int
     , ratio              = .int

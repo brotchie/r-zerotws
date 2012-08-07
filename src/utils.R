@@ -3,6 +3,11 @@
 `build.constructor` <- function(name, defn) {
     function(...) {
         args <- list(...)
+
+        # Catch invalid constructor arguments.
+        invalid <- names(args)[sapply(defn[names(args)], is.null)]
+        if (length(invalid)) stop(paste('Unknown field[s]', invalid, 'passed to', name, 'constructor.'))
+
         instance <- mapply(function(f, x) f(x), defn[names(args)], args, SIMPLIFY=FALSE)
         class(instance) <- name
         instance 
@@ -11,7 +16,11 @@
 
 `build.pretty.as.character` <- function(name) {
     function(instance) {
-        fields.pretty <- mapply(function(k, v)paste(k, '=', v), names(instance), instance)
+        fields.pretty <- mapply(
+            function(k, v) {
+                if (is.list(v)) v <- paste(lapply(v, as.character), collapse=", ")
+                paste(k, '=', v)
+            }, names(instance), instance)
         paste(name, "{", paste(fields.pretty, collapse=", "), "}")
     }
 }

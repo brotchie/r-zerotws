@@ -1,13 +1,4 @@
-library(rzmq)
-
-
-source("utils.R")
-source("ticktypes.R")
-source("fieldparsers.R")
-source("message.R")
-source("order.R")
-source("contract.R")
-source("parser.R")
+source('ribtws.R')
 
 ##### ZeroMQ connections #####
 ibtws.broadcast.endpoint <- "ipc:///var/tmp/ibtws/broadcast"
@@ -34,12 +25,16 @@ print(receive.socket(ibtws.command, unserialize=FALSE))
 #send.ibtws(ibtws.command, list(1, 9, 1, NA, "BHP", "STK", NA, NA, NA, NA, "SMART", NA, "AUD", NA, 0, NA, 0))
 #print(receive.socket(ibtws.command, unserialize=FALSE))
 
+receive.ibtws <- function(socket) {
+   rawmsg <- receive.socket(socket, unserialize=FALSE)
+   fields <- parseFields(rawmsg)
+   IB.Message.parse(fields)
+}
+
 send.ibtws(ibtws.command, list(16, 1));
-print(receive.socket(ibtws.command, unserialize=FALSE))
+receive.socket(ibtws.command, unserialize=FALSE)
 
 repeat {
-   rawmsg <- receive.socket(ibtws.broadcast, unserialize=FALSE)
-   fields <- parseFields(rawmsg)
-   msg <- IB.Message.parse(fields)
+   msg <- receive.ibtws(ibtws.broadcast)
    print(msg)
 }
