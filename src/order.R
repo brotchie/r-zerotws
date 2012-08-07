@@ -1,3 +1,9 @@
+##  ___                  _                                                   ##
+## | _ \  ______ _ _ ___| |___ __ _____ r-ØTWS - Comms Between R and an IB   ##
+## |   /_|_ / -_) '_/ _ \  _\ V  V (_-<          TWS API <-> ØMQ Proxy       ##
+## |_|_(_)__\___|_| \___/\__|\_/\_//__/ (c) 2012, James Brotchie             ##
+##                                      http://zerotick.org/                 ##
+
 `IB.Order.definition` <- list(
         order.id = .int
       , client.id = .int
