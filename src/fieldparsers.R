@@ -7,7 +7,20 @@ with.na.default <- function(parser, default) {
 
 .int <- with.na.default(as.integer, 0)
 .string <- as.character
-.double <- with.na.default(as.numeric, 0.0)
+
+.double.max = "1.7976931348623157E308"
+.double <- function(x) {
+    if (x == .double.max) {
+        NA
+    } else {
+        value <- as.numeric(x)
+        if (is.na(value)) {
+            0.0
+        } else {
+            value
+        }
+    }
+}
 .boolean <- function(x) {
     if (x == '') {
         FALSE
